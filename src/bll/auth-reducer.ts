@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux'
-import {authAPI, RegisterParamsType} from "../dll/api";
+import {authAPI, RegisterParamsType} from "../dll/registerApi";
 
 const initialState = {
     isRegistered: false

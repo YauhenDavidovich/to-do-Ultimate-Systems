@@ -2,14 +2,13 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL:
-        'https://recruitment.ultimate.systems/',
-    withCredentials: true
+        'https://recruitment.ultimate.systems'
 });
 
 
 export const authAPI = {
     register(data: RegisterParamsType) {
-        return instance.post<RegisterResponseType>('auth/login', data);
+        return instance.post<RegisterResponseType>('/auth/local/register', data);
     }
 };
 export type RegisterParamsType = {

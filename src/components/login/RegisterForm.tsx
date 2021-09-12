@@ -1,20 +1,25 @@
 import React from 'react'
 import {FormControl, FormGroup, FormLabel, TextField, Button, Grid} from '@material-ui/core'
 import {useFormik} from "formik";
+import {useDispatch} from "react-redux";
+import {registerTC} from "../../bll/auth-reducer";
 
 type FormikErrorType = {
+    username?: string
     email?: string
     password?: string
+    repeatPassword?: string
 }
 
 
 export const RegisterForm = () => {
+    const dispatch = useDispatch()
     const formik = useFormik({
         initialValues: {
             username: '',
             email: '',
             password: '',
-            repeatPassword: '',
+            repeatPassword: ''
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -29,11 +34,16 @@ export const RegisterForm = () => {
             } else if (values.password.length < 3) {
                 errors.password = 'Must be 3 characters or more';
             }
+            if(values.password !==values.repeatPassword) {
+                errors.repeatPassword = 'The password does not match';
+            }
             return errors;
+
 
         },
         onSubmit: values => {
             formik.resetForm()
+            dispatch(registerTC({username:values.username, email: values.email, password: values.password}))
         },
     })
 
