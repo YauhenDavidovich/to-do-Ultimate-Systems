@@ -19,35 +19,35 @@ export type RegisterParamsType = {
 }
 
 type RegisterResponseType = {
-    "id": "string",
-    "username": "string",
-    "email": "string",
-    "provider": "string",
-    "confirmed": false,
-    "blocked": false,
+    "id": string,
+    "username": string,
+    "email": string,
+    "provider": string,
+    "confirmed": boolean,
+    "blocked": boolean,
     "role": {
-        "id": "string",
-        "name": "string",
-        "description": "string",
-        "type": "string",
+        "id": string,
+        "name": string,
+        "description": string,
+        "type": string,
         "permissions": [
-            "string"
+            string
         ],
         "users": [
-            "string"
+            string
         ],
-        "created_by": "string",
-        "updated_by": "string"
+        "created_by": string,
+        "updated_by": string
     },
     "to_do_lists": [
         {
-            "id": "string",
-            "name": "string",
-            "task": "Unknown Type: component",
-            "user": "string",
-            "published_at": "string",
-            "created_by": "string",
-            "updated_by": "string"
+            "id": string
+            "name": string
+            "task": any,
+            "user": string,
+            "published_at": string,
+            "created_by": string,
+            "updated_by": string
         }
     ]
 }
