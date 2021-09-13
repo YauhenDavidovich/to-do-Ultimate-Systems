@@ -6,7 +6,8 @@ import {loginReducer} from "./login-reducer";
 
 const rootReducer = combineReducers({
     registration: registrationReducer,
-    login: loginReducer
+    login: loginReducer,
+    todolists: todolistsReducer,
 })
 // непосредственно создаём store
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
