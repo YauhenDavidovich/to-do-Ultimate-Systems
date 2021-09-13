@@ -12,6 +12,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {Redirect, Route, Switch} from "react-router-dom";
 import {Login} from "./components/login/Login";
 import {Registration} from "./components/registration/Registration";
+import {TodolistsList} from "./components/todolists/TodolistsList";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         </AppBar>
         <Container fixed>
           <Switch>
-            {/*<Route exact path={'/'} render={()=><TodolistsList/> }/>*/}
+            <Route exact path={'/'} render={()=><TodolistsList/> }/>
             <Route path={'/login'} render={()=><Login/> }/>
             <Route path={'/registration'} render={()=><Registration/> }/>
             <Route path={ '/404' } render={ () => <h1>404: PAGE NOT FOUND</h1> }/>
