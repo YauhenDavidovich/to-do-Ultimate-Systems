@@ -9,10 +9,9 @@ import {
   Typography
 } from "@material-ui/core";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import {RegisterForm} from "./components/registration/RegisterForm";
 import {Redirect, Route, Switch} from "react-router-dom";
-import {LoginForm} from "./components/login/LoginForm";
 import {Login} from "./components/login/Login";
+import {Registration} from "./components/registration/Registration";
 
 function App() {
   return (
@@ -28,7 +27,7 @@ function App() {
           <Switch>
             {/*<Route exact path={'/'} render={()=><TodolistsList/> }/>*/}
             <Route path={'/login'} render={()=><Login/> }/>
-            <Route path={'/register'} render={()=><RegisterForm/> }/>
+            <Route path={'/registration'} render={()=><Registration/> }/>
             <Route path={ '/404' } render={ () => <h1>404: PAGE NOT FOUND</h1> }/>
             <Redirect from={'*'} to={'/404'}/>
           </Switch>

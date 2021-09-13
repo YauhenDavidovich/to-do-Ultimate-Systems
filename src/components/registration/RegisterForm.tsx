@@ -9,10 +9,11 @@ type FormikErrorType = {
     email?: string
     password?: string
     repeatPassword?: string
+
 }
 
 
-export const RegisterForm = () => {
+export const RegistrationForm = () => {
     const dispatch = useDispatch()
     const formik = useFormik({
         initialValues: {

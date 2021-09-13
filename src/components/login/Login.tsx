@@ -9,7 +9,7 @@ export const Login = () => {
             <LoginForm/>
             <div >
                 <span>or</span>
-                <NavLink to={"/register"}>create an account</NavLink>
+                <NavLink to={"/registration"}>create an account</NavLink>
             </div>
         </Grid>
     </Grid>
