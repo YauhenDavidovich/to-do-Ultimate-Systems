@@ -6,7 +6,7 @@ const initialState = {
 }
 type InitialStateType = typeof initialState
 
-export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const registrationReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'register/SET-IS-REGISTERED':
             return {...state, isRegistered: action.value}

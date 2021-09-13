@@ -2,7 +2,7 @@ import React from 'react'
 import {FormControl, FormGroup, FormLabel, TextField, Button, Grid} from '@material-ui/core'
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
-import {registerTC} from "../../bll/auth-reducer";
+import {registerTC} from "../../bll/registration-reducer";
 
 type FormikErrorType = {
     username?: string

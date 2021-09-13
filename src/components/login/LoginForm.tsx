@@ -2,9 +2,10 @@ import React from 'react';
 import {Button, FormControl, FormGroup, FormLabel, Grid, TextField} from "@material-ui/core";
 import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
+import {loginTC} from "../../bll/login-reducer";
 
 type FormikErrorType = {
-    username?: string
+    identifier?: string
     password?: string
 }
 
@@ -13,13 +14,13 @@ export const LoginForm = () => {
     const dispatch = useDispatch()
     const formik = useFormik({
         initialValues: {
-            username: '',
+            identifier: '',
             password: ''
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
-            if (!values.username) {
-                errors.username = 'Required';
+            if (!values.identifier) {
+                errors.identifier = 'Required';
             }
 
             if(!values.password) {
@@ -30,7 +31,9 @@ export const LoginForm = () => {
 
         },
         onSubmit: values => {
+            dispatch(loginTC(values))
             formik.resetForm()
+
         },
     })
 
@@ -44,14 +47,14 @@ export const LoginForm = () => {
                     </FormLabel>
                     <FormGroup>
                         <TextField
-                            label="Username"
+                            label="Username or email"
                             margin="normal"
-                            name="username"
+                            name="identifier"
                             onChange={formik.handleChange}
-                            value={formik.values.username}
+                            value={formik.values.identifier}
                             onBlur={formik.handleBlur}
                         />
-                        {formik.touched.username && formik.errors.username && <div style={{color: 'red'}}>{formik.errors.username}</div>}
+                        {formik.touched.identifier && formik.errors.identifier && <div style={{color: 'red'}}>{formik.errors.identifier}</div>}
 
                         <TextField
                             type="password"
