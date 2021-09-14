@@ -2,14 +2,18 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL:
-        'https://recruitment.ultimate.systems'
+        'https://recruitment.ultimate.systems',
+    headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+    }
 });
 
 
 export const todolistsAPI = {
-    getTodolists(todos: ToDosRequestParamsType) {
-        return instance.post<TodolistType[]>('/to-do-lists', {...todos});
+    getTodolists() {
+        return instance.get<TodolistType[]>('/to-do-lists', );
     },
+
 };
 export type ToDosRequestParamsType = {
     _limit?: number,

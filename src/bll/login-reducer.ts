@@ -4,6 +4,7 @@ import {loginAPI, LoginParamsType} from "../dll/loginApi";
 const initialState = {
     username: "",
     id: 0,
+    jwt: "",
     isLogin: false
 }
 type InitialStateType = typeof initialState
@@ -28,6 +29,7 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsTyp
                 alert(res.data.message)
             }
             dispatch(setIsLoginAC(res.data.user.username, res.data.user.id, true ))
+            localStorage.setItem("token", res.data.jwt)
         })
         .catch((error) => {
             alert(error)

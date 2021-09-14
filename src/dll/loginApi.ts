@@ -20,6 +20,7 @@ type LoginResponseType = {
     user: UserType,
     code: number,
     message: string
+    jwt: string
 }
 
 type UserType = {
