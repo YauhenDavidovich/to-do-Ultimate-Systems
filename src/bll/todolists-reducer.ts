@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux'
-import {todolistsAPI, TodolistType} from "../dll/todolistsApi";
+import {CreateTodoType, todolistsAPI, TodolistType} from "../dll/todolistsApi";
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -7,12 +7,16 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
     switch (action.type) {
         case 'SET-TODOLISTS':
             return action.todolists.map(todos => ({...todos}))
+        case 'ADD-TODOLIST':
+            return [{...action.todolist}, ...state]
         default:
             return state
     }
 }
 
 export const setTodolistsAC = (todolists: Array<TodolistType>) => ({type: 'SET-TODOLISTS', todolists} as const)
+export const addTodolistAC = (todolist: TodolistType) => ({type: 'ADD-TODOLIST', todolist} as const)
+
 
 // thunks
 export const fetchTodolistsTC = () => {
@@ -23,10 +27,18 @@ export const fetchTodolistsTC = () => {
             })
     }
 }
-
+export const addTodolistTC = (todo: CreateTodoType) => {
+    return (dispatch: ThunkDispatch) => {
+        todolistsAPI.createTodolist(todo)
+            .then((res) => {
+                dispatch(addTodolistAC(res.data.data.item))
+            })
+    }
+}
 // types
 export type SetTodolistsActionType = ReturnType<typeof setTodolistsAC>;
-type ActionsType = SetTodolistsActionType
+export type AddTodolistsActionType = ReturnType<typeof addTodolistAC>;
+type ActionsType = SetTodolistsActionType | AddTodolistsActionType
 export type TodolistDomainType = TodolistType
 //     & {
 //

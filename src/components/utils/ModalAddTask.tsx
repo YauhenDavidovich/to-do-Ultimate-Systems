@@ -5,8 +5,9 @@ import {useFormik} from "formik";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import {Modal} from "./ModalTask";
+import {addTodolistTC} from "../../bll/todolists-reducer";
 
-type UpdateCardsModalType = {
+type AddTodoModalType = {
     show: boolean
     setShow: (show: boolean) => void
 }
@@ -16,11 +17,20 @@ type FormikErrorType = {
 }
 
 
-export const ModalAddTask = (props: UpdateCardsModalType ) => {
+export const ModalAddTask = (props: AddTodoModalType ) => {
 
     const dispatch = useDispatch();
 
-
+    const demoTodo = {
+        name: "My to do list name",
+        task: [
+            {
+                id: 232323,
+                name: "task 1",
+                isDone: false
+            }
+        ]
+    }
     const formik = useFormik({
         initialValues: {
             todosName: ''
@@ -33,9 +43,8 @@ export const ModalAddTask = (props: UpdateCardsModalType ) => {
             return errors;
         },
         onSubmit: values => {
-
             props.setShow(false)
-            // dispatch(addTodosThunk(props.todos_id, values.todosName))
+            dispatch(addTodolistTC(demoTodo))
             formik.resetForm();
         },
     })
@@ -55,7 +64,7 @@ export const ModalAddTask = (props: UpdateCardsModalType ) => {
                         <Grid container direction='column' spacing={1} alignItems='center'>
                             <Grid item>
                                 <TextareaAutosize minRows={3} placeholder="List name"
-                                                  {...formik.getFieldProps("name")}/>
+                                                  {...formik.getFieldProps("todosName")}/>
                                 {formik.touched.todosName && formik.errors.todosName ?
                                     <div style={{color: "blue"}}>{formik.errors.todosName}</div> : null}
                             </Grid>

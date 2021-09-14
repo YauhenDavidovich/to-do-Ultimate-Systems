@@ -21,19 +21,7 @@ export const TodolistsList = () => {
         dispatch(fetchTodolistsTC());
     }, [dispatch])
 
-    const demoTodo = {
-        "name": "My to do list name",
-        "task": [
-            {
-                "name": "task 1",
-                "isDone": false
-            },
-            {
-                "name": "task 2",
-                "isDone": false
-            }
-        ]
-    }
+
     const addTodoHandler = useCallback(() => {
         setShowAddTodo(true)
     }, [])

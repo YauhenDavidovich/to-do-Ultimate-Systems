@@ -14,8 +14,7 @@ export const todolistsAPI = {
         return instance.get<TodolistType[]>('/to-do-lists', );
     },
     createTodolist(data: CreateTodoType) {
-        const promise = instance.post<TodolistType>('todo-lists', {data});
-        return promise;
+        return instance.post<ResponseType<{ item: TodolistType }>>('to-do-lists', {data});
     },
 
 };
@@ -50,7 +49,7 @@ export type TodolistType = {
 }
 
 export type TaskTypeResponse = {
-    id: string
+    // id: string
     name: string,
     isDone: boolean
 }
