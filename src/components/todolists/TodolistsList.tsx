@@ -1,14 +1,16 @@
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
 import {Redirect} from "react-router-dom";
-import {Grid} from "@material-ui/core";
-import {useEffect} from "react";
+import {Button, Grid} from "@material-ui/core";
+import {useCallback, useEffect, useState} from "react";
 import {fetchTodolistsTC, TodolistDomainType} from "../../bll/todolists-reducer";
+import {ModalAddTask} from "../utils/ModalAddTask";
 
 export const TodolistsList = () => {
     const dispatch = useDispatch();
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
+    const [showAddTodo, setShowAddTodo] = useState(false);
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state =>
         state.login.isLogin)
@@ -19,6 +21,22 @@ export const TodolistsList = () => {
         dispatch(fetchTodolistsTC());
     }, [dispatch])
 
+    const demoTodo = {
+        "name": "My to do list name",
+        "task": [
+            {
+                "name": "task 1",
+                "isDone": false
+            },
+            {
+                "name": "task 2",
+                "isDone": false
+            }
+        ]
+    }
+    const addTodoHandler = useCallback(() => {
+        setShowAddTodo(true)
+    }, [])
 
     if (!isLoggedIn) {
         return <Redirect to={'/login'}/>
@@ -32,5 +50,11 @@ export const TodolistsList = () => {
                 return <Grid item key={tl.id}></Grid>
             })}
         </Grid>
+        <Button onClick={() => addTodoHandler()}>
+            Add</Button>
+        {showAddTodo &&
+        <ModalAddTask
+            show={showAddTodo} setShow={setShowAddTodo}
+        />}
     </>
 }

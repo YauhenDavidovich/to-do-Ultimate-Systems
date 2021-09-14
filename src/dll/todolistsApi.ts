@@ -13,6 +13,10 @@ export const todolistsAPI = {
     getTodolists() {
         return instance.get<TodolistType[]>('/to-do-lists', );
     },
+    createTodolist(data: CreateTodoType) {
+        const promise = instance.post<TodolistType>('todo-lists', {data});
+        return promise;
+    },
 
 };
 export type ToDosRequestParamsType = {
@@ -28,16 +32,38 @@ export type ToDosRequestParamsType = {
     _contains?: string,
     _in?: Array<string>,
     _nin?: Array<string>,
-
 }
 
-
+export type CreateTodoType = {
+    "name": string,
+    "task": TaskTypeResponse[]
+}
 
 export type TodolistType = {
     id: string
     name: string
+    user: string
     published_at: string
+    created_by: string
+    updated_by: string
+    task: TaskType[]
+}
+
+export type TaskTypeResponse = {
+    id: string
+    name: string,
+    isDone: boolean
+}
+
+export type TaskType = {
+    name: string,
+    isDone: boolean
 }
 
 
 
+export type ResponseType<D = {}> = {
+    resultCode: number
+    messages: Array<string>
+    data: D
+}
