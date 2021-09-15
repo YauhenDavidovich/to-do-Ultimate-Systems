@@ -4,19 +4,17 @@ import {Redirect} from "react-router-dom";
 import {Button, Grid} from "@material-ui/core";
 import {useCallback, useEffect, useState} from "react";
 import {fetchTodolistsTC, TodolistDomainType} from "../../bll/todolists-reducer";
-import {ModalAddTask} from "../utils/ModalAddTask";
+import {ModalAddTodo} from "../utils/ModalAddTodo";
 import AddIcon from '@material-ui/icons/Add';
+import {ModalUpdateTodo} from "../utils/ModalUpdateTodo";
 
 export const TodolistsList = () => {
     const dispatch = useDispatch();
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
-    let rez = {};
-    todolists.forEach(function (item) {
-        // @ts-ignore
-        rez[item.isDone] ? rez[item.isDone]++ : rez[item.isDone] = 1;
-    });
     const [showAddTodo, setShowAddTodo] = useState(false);
+    const [showUpdateTodo, setShowUpdateTodo] = useState(false);
+    const [currentTodo, setCurrentTodo] = useState("todoId");
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state =>
         state.login.isLogin)
@@ -28,6 +26,10 @@ export const TodolistsList = () => {
 
     const addTodoHandler = useCallback(() => {
         setShowAddTodo(true)
+    }, [])
+    const updateTodoHandler = useCallback((id: string) => {
+        setCurrentTodo(id);
+        setShowUpdateTodo(true)
     }, [])
 
     if (!isLoggedIn) {
@@ -41,8 +43,10 @@ export const TodolistsList = () => {
         <Grid container spacing={1} direction="column">
             {todolists.map(tl => {
                 return <Grid container key={tl.id} style={{backgroundColor: "grey",
-                    borderRadius: 8, color: 'white', margin: 4, padding: 18}}
-                             direction={"row"} justifyContent={"space-between"}>
+                    borderRadius: 8, color: 'white', margin: 4, padding: 18, cursor: "pointer"}}
+                             direction={"row"} justifyContent={"space-between"}
+                             onClick={() => updateTodoHandler(tl.id)}
+                >
                     <Grid item>{tl.name}</Grid>
                     <Grid item>Created at: {tl.published_at}</Grid>
                     <Grid item>Completed: {tl.task.filter(f => f.isDone === true).length} Uncompleted: {tl.task.filter(f => f.isDone === false).length} All: {tl.task.length + 1}</Grid>
@@ -53,8 +57,13 @@ export const TodolistsList = () => {
             right: 10, backgroundColor: "white", color: 'orange', margin: 4, padding: 18}}onClick={() => addTodoHandler()}>
             Add</AddIcon>
         {showAddTodo &&
-        <ModalAddTask
+        <ModalAddTodo
             show={showAddTodo} setShow={setShowAddTodo}
         />}
+        {showUpdateTodo &&
+        <ModalUpdateTodo
+            show={showUpdateTodo} setShow={setShowUpdateTodo} todolistID={currentTodo}
+        />}
+
     </>
 }

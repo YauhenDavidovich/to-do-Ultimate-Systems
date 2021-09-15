@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import {useFormik, Field, FormikProvider} from "formik";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import {Modal} from "./ModalTask";
+import {Modal} from "./ModalTodo";
 import {addTodolistTC, TodolistDomainType} from "../../bll/todolists-reducer";
 import useId from "react-id-generator";
 
@@ -19,7 +19,7 @@ type FormikErrorType = {
 }
 
 
-export const ModalAddTask = (props: PropsType) => {
+export const ModalAddTodo = (props: PropsType) => {
     const dispatch = useDispatch();
     const taskId = useId();
 
