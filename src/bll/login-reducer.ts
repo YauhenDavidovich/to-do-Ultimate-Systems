@@ -35,6 +35,10 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsTyp
             alert(error)
         })
 }
+export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
+            dispatch(setIsLoginAC( "",0,false ))
+            localStorage.removeItem("token")
+        }
 
 
 // types

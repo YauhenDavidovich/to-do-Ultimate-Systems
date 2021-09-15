@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
 import {Redirect} from "react-router-dom";
-import {Button, Grid} from "@material-ui/core";
+import {Grid} from "@material-ui/core";
 import {useCallback, useEffect, useState} from "react";
 import {fetchTodolistsTC, TodolistDomainType} from "../../bll/todolists-reducer";
 import {ModalAddTodo} from "../utils/ModalAddTodo";

@@ -8,15 +8,17 @@ import {AppRootStateType} from "../../bll/store";
 export const Login = () => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state =>
         state.login.isLogin)
-    if(isLoggedIn) {
+    if (isLoggedIn) {
         return <Redirect to={'/'}/>
     }
-    return <Grid container justify="center">
+    return <Grid container justify="center" style={{backgroundColor: "rgb(45, 45, 45)", maxWidth: 890, marginTop: 200}}>
         <Grid item xs={4}>
+            <h2 style={{color: 'orange'}}>Login</h2>
             <LoginForm/>
-            <div >
+            <div>
                 <span>or</span>
-                <NavLink to={"/registration"}>create an account</NavLink>
+                <NavLink to={"/registration"} style={{color: 'orange', textDecoration: "none"}}><h3>create an
+                    account</h3></NavLink>
             </div>
         </Grid>
     </Grid>

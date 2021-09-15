@@ -9,6 +9,9 @@ const instance = axios.create({
 export const loginAPI = {
     login(data: LoginParamsType) {
         return instance.post<LoginResponseType>('/auth/local/', data);
+    },
+    logout() {
+        return instance.delete<ResponseType<ResponseMeType>>('/auth/local/');
     }
 };
 export type LoginParamsType = {
@@ -33,6 +36,14 @@ type UserType = {
     "updated_at": Date
 }
 
+export type ResponseType<D = {}> = {
+    resultCode: number
+    messages: Array<string>
+    data: D
+}
 
-
-
+type ResponseMeType = {
+    id: number
+    email: string
+    login: string
+}

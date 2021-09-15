@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, FormControl, FormGroup, FormLabel, Grid, TextField} from "@material-ui/core";
+import {Button, FormControl, FormGroup, Grid, TextField} from "@material-ui/core";
 import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
 import {loginTC} from "../../bll/login-reducer";
@@ -42,9 +42,6 @@ export const LoginForm = () => {
         <Grid item xs={4}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
-                    <FormLabel>
-                        <p>Create an new account:</p>
-                    </FormLabel>
                     <FormGroup>
                         <TextField
                             label="Username or email"
@@ -67,7 +64,7 @@ export const LoginForm = () => {
                         />
                         {formik.touched.password && formik.errors.password && <div style={{color: 'red'}}>{formik.errors.password}</div>}
 
-                        <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
+                        <Button type={'submit'} variant={'contained'} style={{backgroundColor: 'orange', color: 'white'}}>Login</Button>
                     </FormGroup>
                 </FormControl>
             </form>
