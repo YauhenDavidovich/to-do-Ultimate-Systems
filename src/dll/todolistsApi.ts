@@ -42,7 +42,7 @@ export type TodolistType = {
     id: string
     name: string
     user: string
-    published_at: string
+    published_at: Date
     created_by: string
     updated_by: string
     task: TaskType[]
