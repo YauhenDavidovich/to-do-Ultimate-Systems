@@ -33,9 +33,9 @@ export const TodolistsList = () => {
     return <>
         <input type={"text"}/>
         <button>Sort by</button>
-        <Grid container spacing={3}>
+        <Grid container spacing={1} direction="column">
             {todolists.map(tl => {
-                return <Grid item key={tl.id}></Grid>
+                return <Grid item key={tl.id}  style={{backgroundColor: 'red', color: 'white', margin: 4}}>{tl.name}</Grid>
             })}
         </Grid>
         <Button onClick={() => addTodoHandler()}>

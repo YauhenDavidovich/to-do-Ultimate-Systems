@@ -14,7 +14,7 @@ export const todolistsAPI = {
         return instance.get<TodolistType[]>('/to-do-lists', );
     },
     createTodolist(data: CreateTodoType) {
-        return instance.post<ResponseType<{ item: TodolistType }>>('to-do-lists', {data});
+        return instance.post<TodolistType>('to-do-lists', data);
     },
 
 };
@@ -35,7 +35,7 @@ export type ToDosRequestParamsType = {
 
 export type CreateTodoType = {
     "name": string,
-    "task": TaskTypeResponse[]
+    "task": TaskType[]
 }
 
 export type TodolistType = {
@@ -48,16 +48,12 @@ export type TodolistType = {
     task: TaskType[]
 }
 
-export type TaskTypeResponse = {
-    // id: string
+export type TaskType = {
+    id: string,
     name: string,
     isDone: boolean
 }
 
-export type TaskType = {
-    name: string,
-    isDone: boolean
-}
 
 
 

@@ -1,82 +1,119 @@
-import React from "react";
-import {FormControl, FormGroup, TextareaAutosize} from "@material-ui/core";
+import React, {useCallback} from "react";
+import {Checkbox, FormControl, FormControlLabel, FormGroup, TextField, TextareaAutosize} from "@material-ui/core";
 import {useDispatch} from "react-redux";
-import {useFormik} from "formik";
+import {useFormik, Field, FormikProvider} from "formik";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import {Modal} from "./ModalTask";
-import {addTodolistTC} from "../../bll/todolists-reducer";
+import {addTodolistTC, TodolistDomainType} from "../../bll/todolists-reducer";
+import useId from "react-id-generator";
 
-type AddTodoModalType = {
+type PropsType = {
     show: boolean
     setShow: (show: boolean) => void
 }
 
+
 type FormikErrorType = {
-    todosName?: string
+    name?: string
 }
 
 
-export const ModalAddTask = (props: AddTodoModalType ) => {
-
+export const ModalAddTask = (props: PropsType) => {
     const dispatch = useDispatch();
+    const taskId = useId();
 
-    const demoTodo = {
-        name: "My to do list name",
-        task: [
-            {
-                id: 232323,
-                name: "task 1",
-                isDone: false
-            }
-        ]
-    }
     const formik = useFormik({
         initialValues: {
-            todosName: ''
+            name: '',
+            task: [
+                {
+                    id: "",
+                    name: "",
+                    isDone: false,
+                },
+            ],
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
-            if (!values.todosName) {
-                errors.todosName = 'name is required';
+            if (!values.name) {
+                errors.name = 'name is required';
             }
             return errors;
         },
         onSubmit: values => {
             props.setShow(false)
-            dispatch(addTodolistTC(demoTodo))
+            dispatch(addTodolistTC(values))
+            console.log(values)
             formik.resetForm();
         },
-    })
+    });
+    const handleNewField = () => {
+        formik.setFieldValue("task", [
+            ...formik.values.task,
+            {id: "", name: "", isDone: false},
+        ]);
+    };
+
 
     return (
         <Modal
-            height={200}
-            width={180}
+            height={800}
+            width={880}
             backgroundOnClick={() => props.setShow(false)}
             enableBackground={true}
             show={props.show}>
-
             <form onSubmit={formik.handleSubmit}>
+                <FormikProvider value={formik}>
+                    <FormControl>
+                        <FormGroup>
+                            <Grid container direction='column' spacing={1} alignItems='center'>
+                                <Grid item>
+                                    <TextField
+                                        label="List name"
+                                        margin="normal"
+                                        name="name"
+                                        onChange={formik.handleChange}
+                                        value={formik.values.name}
+                                        onBlur={formik.handleBlur}/>
+                                    {formik.touched.name && formik.errors.name ?
+                                        <div style={{color: "blue"}}>{formik.errors.name}</div> : null}
+                                </Grid>
+                                <Grid item>
+                                    {formik.values.task.map((task, index) => (
+                                        <Grid item key={index}>
+                                            <label>
+                                                <Field type="checkbox" name={`task[${index}].isDone`}/>
+                                            </label>
+                                            <TextareaAutosize minRows={1} placeholder="Task name"
+                                                              {...formik.getFieldProps(`task[${index}].name`)}/>
 
-                <FormControl>
-                    <FormGroup>
-                        <Grid container direction='column' spacing={1} alignItems='center'>
-                            <Grid item>
-                                <TextareaAutosize minRows={3} placeholder="List name"
-                                                  {...formik.getFieldProps("todosName")}/>
-                                {formik.touched.todosName && formik.errors.todosName ?
-                                    <div style={{color: "blue"}}>{formik.errors.todosName}</div> : null}
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                                <Grid container direction={'row'} justifyContent={"space-between"}>
+                                    <Grid item>
+                                        <Button variant={'contained'}
+                                                color={'secondary'}>Cancel</Button>
+                                    </Grid>
+                                    <Grid item>
+                                        <Button variant={'contained'}
+                                                color={'primary'} onClick={handleNewField}>Add</Button>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container direction={'row'} justifyContent={"space-between"}>
+                                    <Grid item>
+                                        <Button variant={'contained'} color={'secondary'}>Cancel</Button>
+                                    </Grid>
+                                    <Grid item>
+                                        <Button type={'submit'} variant={'contained'} color={'primary'}>Save</Button>
+                                    </Grid>
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <Button type={'submit'} variant={'contained'} color={'primary'}>Save</Button>
-                            </Grid>
-                            <Grid item>
-                                <Button type={'submit'} variant={'contained'} color={'secondary'}>Cancel</Button>
-                            </Grid>
-                        </Grid>
-                    </FormGroup>
-                </FormControl>
+                        </FormGroup>
+                    </FormControl>
+                </FormikProvider>
             </form>
 
         </Modal>

@@ -31,7 +31,7 @@ export const addTodolistTC = (todo: CreateTodoType) => {
     return (dispatch: ThunkDispatch) => {
         todolistsAPI.createTodolist(todo)
             .then((res) => {
-                dispatch(addTodolistAC(res.data.data.item))
+                dispatch(addTodolistAC(res.data))
             })
     }
 }
