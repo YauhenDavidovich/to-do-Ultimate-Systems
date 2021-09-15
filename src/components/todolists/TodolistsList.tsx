@@ -5,6 +5,7 @@ import {Button, Grid} from "@material-ui/core";
 import {useCallback, useEffect, useState} from "react";
 import {fetchTodolistsTC, TodolistDomainType} from "../../bll/todolists-reducer";
 import {ModalAddTask} from "../utils/ModalAddTask";
+import AddIcon from '@material-ui/icons/Add';
 
 export const TodolistsList = () => {
     const dispatch = useDispatch();
@@ -48,8 +49,9 @@ export const TodolistsList = () => {
                 </Grid>
             })}
         </Grid>
-        <Button onClick={() => addTodoHandler()}>
-            Add</Button>
+        <AddIcon style={{position: "sticky", bottom: 10, cursor: "pointer", borderRadius: 50, fontSize: 40,
+            right: 10, backgroundColor: "white", color: 'orange', margin: 4, padding: 18}}onClick={() => addTodoHandler()}>
+            Add</AddIcon>
         {showAddTodo &&
         <ModalAddTask
             show={showAddTodo} setShow={setShowAddTodo}
