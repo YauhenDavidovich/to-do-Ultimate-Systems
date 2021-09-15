@@ -7,6 +7,7 @@ import {fetchTodolistsTC, TodolistDomainType} from "../../bll/todolists-reducer"
 import {ModalAddTodo} from "../utils/ModalAddTodo";
 import AddIcon from '@material-ui/icons/Add';
 import {ModalUpdateTodo} from "../utils/ModalUpdateTodo";
+import SimpleSelect from "../utils/Sort";
 
 export const TodolistsList = () => {
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export const TodolistsList = () => {
         state.login.isLogin)
 
     useEffect(() => {
-        dispatch(fetchTodolistsTC());
+        dispatch(fetchTodolistsTC({}));
     }, [dispatch])
 
 
@@ -37,9 +38,13 @@ export const TodolistsList = () => {
     }
     console.log(todolists)
 
-    return <>
-        <input type={"text"}/>
-        <button>Sort by</button>
+    return <Grid container direction="column">
+        <Grid container direction={"row"} justifyContent={"space-between"}>
+            <input type={"text"}/>
+
+        </Grid>
+        <SimpleSelect/>
+
         <Grid container spacing={1} direction="column">
             {todolists.map(tl => {
                 return <Grid container key={tl.id} style={{backgroundColor: "grey",
@@ -65,5 +70,5 @@ export const TodolistsList = () => {
             show={showUpdateTodo} setShow={setShowUpdateTodo} todolistID={currentTodo}
         />}
 
-    </>
+    </Grid>
 }

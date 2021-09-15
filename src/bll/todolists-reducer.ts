@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux'
-import {CreateTodoType, todolistsAPI, TodolistType} from "../dll/todolistsApi";
+import {CreateTodoType, todolistsAPI, TodolistType, ToDosRequestParamsType} from "../dll/todolistsApi";
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -19,9 +19,9 @@ export const addTodolistAC = (todolist: TodolistType) => ({type: 'ADD-TODOLIST',
 
 
 // thunks
-export const fetchTodolistsTC = () => {
+export const fetchTodolistsTC = (data: ToDosRequestParamsType) => {
     return (dispatch: ThunkDispatch) => {
-        todolistsAPI.getTodolists()
+        todolistsAPI.getTodolists(data)
             .then((res) => {
                 dispatch(setTodolistsAC(res.data))
             })
