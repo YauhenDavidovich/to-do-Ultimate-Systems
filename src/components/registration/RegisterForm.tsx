@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormControl, FormGroup, FormLabel, TextField, Button, Grid} from '@material-ui/core'
+import {FormControl, FormGroup, FormLabel, TextField, Button, Grid, makeStyles} from '@material-ui/core'
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
 import {registerTC} from "../../bll/registration-reducer";
@@ -12,6 +12,11 @@ type FormikErrorType = {
 
 }
 
+const useStyles = makeStyles((theme) => ({
+    input: {
+        backgroundColor: "white",
+    },
+}));
 
 export const RegistrationForm = () => {
     const dispatch = useDispatch()
@@ -48,17 +53,18 @@ export const RegistrationForm = () => {
         },
     })
 
+    const classes = useStyles();
 
     return <Grid container justify="center">
         <Grid item xs={4}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
-                    <FormLabel>
-                        <p>Create an new account:</p>
-                    </FormLabel>
                     <FormGroup>
                         <TextField
-                            label="Username"
+                            inputProps={{ className: classes.input }}
+                            variant="outlined"
+                            fullWidth
+                            placeholder="Username"
                             margin="normal"
                             name="username"
                             onChange={formik.handleChange}
@@ -68,8 +74,11 @@ export const RegistrationForm = () => {
                         {formik.touched.email && formik.errors.email && <div style={{color: 'red'}}>{formik.errors.email}</div>}
 
                         <TextField
-                            label="Email"
+                            inputProps={{ className: classes.input }}
+                            placeholder="Email"
                             margin="normal"
+                            fullWidth
+                            variant="outlined"
                             name="email"
                             onChange={formik.handleChange}
                             value={formik.values.email}
@@ -77,19 +86,25 @@ export const RegistrationForm = () => {
                         />
                         {formik.touched.email && formik.errors.email && <div style={{color: 'red'}}>{formik.errors.email}</div>}
                         <TextField
+                            inputProps={{ className: classes.input }}
                             type="password"
-                            label="Password"
+                            placeholder="password"
                             margin="normal"
                             name="password"
+                            variant="outlined"
+                            fullWidth
                             onChange={formik.handleChange}
                             value={formik.values.password}
                             onBlur={formik.handleBlur}
                         />
                         {formik.touched.password && formik.errors.password && <div style={{color: 'red'}}>{formik.errors.password}</div>}
                         <TextField
+                            inputProps={{ className: classes.input }}
                             type="password"
-                            label="Repeat password"
+                            placeholder="repeat password"
                             margin="normal"
+                            variant="outlined"
+                            fullWidth
                             name="repeatPassword"
                             onChange={formik.handleChange}
                             value={formik.values.repeatPassword}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, FormControl, FormGroup, Grid, TextField} from "@material-ui/core";
+import {Button, FormControl, FormGroup, Grid, makeStyles, TextField} from "@material-ui/core";
 import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
 import {loginTC} from "../../bll/login-reducer";
@@ -9,6 +9,11 @@ type FormikErrorType = {
     password?: string
 }
 
+const useStyles = makeStyles((theme) => ({
+    input: {
+        backgroundColor: "white",
+    },
+}));
 
 export const LoginForm = () => {
     const dispatch = useDispatch()
@@ -37,14 +42,15 @@ export const LoginForm = () => {
         },
     })
 
-
+    const classes = useStyles();
     return <Grid container justify="center">
         <Grid item xs={4}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
                     <FormGroup>
                         <TextField
-                            label="Username or email"
+                            inputProps={{ className: classes.input }}
+                            placeholder="Username or email"
                             margin="normal"
                             name="identifier"
                             onChange={formik.handleChange}
@@ -54,8 +60,9 @@ export const LoginForm = () => {
                         {formik.touched.identifier && formik.errors.identifier && <div style={{color: 'red'}}>{formik.errors.identifier}</div>}
 
                         <TextField
+                            inputProps={{ className: classes.input }}
                             type="password"
-                            label="Password"
+                            placeholder="Password"
                             margin="normal"
                             name="password"
                             onChange={formik.handleChange}
