@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/to-do-Ultimate-Systems/static/css/main.7d180cbf.chunk.css",
+    "main.js": "/to-do-Ultimate-Systems/static/js/main.1b4088c7.chunk.js",
+    "main.js.map": "/to-do-Ultimate-Systems/static/js/main.1b4088c7.chunk.js.map",
+    "runtime-main.js": "/to-do-Ultimate-Systems/static/js/runtime-main.9fb0144c.js",
+    "runtime-main.js.map": "/to-do-Ultimate-Systems/static/js/runtime-main.9fb0144c.js.map",
+    "static/js/2.505eaae9.chunk.js": "/to-do-Ultimate-Systems/static/js/2.505eaae9.chunk.js",
+    "static/js/2.505eaae9.chunk.js.map": "/to-do-Ultimate-Systems/static/js/2.505eaae9.chunk.js.map",
+    "static/js/3.c0104e32.chunk.js": "/to-do-Ultimate-Systems/static/js/3.c0104e32.chunk.js",
+    "static/js/3.c0104e32.chunk.js.map": "/to-do-Ultimate-Systems/static/js/3.c0104e32.chunk.js.map",
+    "index.html": "/to-do-Ultimate-Systems/index.html",
+    "static/css/main.7d180cbf.chunk.css.map": "/to-do-Ultimate-Systems/static/css/main.7d180cbf.chunk.css.map",
+    "static/js/2.505eaae9.chunk.js.LICENSE.txt": "/to-do-Ultimate-Systems/static/js/2.505eaae9.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9fb0144c.js",
+    "static/js/2.505eaae9.chunk.js",
+    "static/css/main.7d180cbf.chunk.css",
+    "static/js/main.1b4088c7.chunk.js"
+  ]
+}
