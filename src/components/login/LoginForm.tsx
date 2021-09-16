@@ -44,7 +44,7 @@ export const LoginForm = () => {
 
     const classes = useStyles();
     return <Grid container justify="center">
-        <Grid item xs={4}>
+        <Grid item xs={10}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
                     <FormGroup>

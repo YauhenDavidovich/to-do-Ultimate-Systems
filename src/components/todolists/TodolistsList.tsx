@@ -7,7 +7,7 @@ import {fetchTodolistsTC, TodolistDomainType} from "../../bll/todolists-reducer"
 import {ModalAddTodo} from "../utils/ModalAddTodo";
 import AddIcon from '@material-ui/icons/Add';
 import {ModalUpdateTodo} from "../utils/ModalUpdateTodo";
-import SimpleSelect from "../utils/Sort";
+import {Sort} from "../utils/Sort";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 
@@ -70,7 +70,7 @@ export const TodolistsList = () => {
 
             </FormControl>
         </Grid>
-        <SimpleSelect/>
+        <Sort/>
 
         <Grid container spacing={1} direction="column">
             {filteredList.map(tl => {
@@ -84,7 +84,7 @@ export const TodolistsList = () => {
                     <Grid item>{tl.name}</Grid>
                     <Grid item>Created at: {tl.published_at}</Grid>
                     <Grid
-                        item>Completed: {tl.task.filter(f => f.isDone === true).length} Uncompleted: {tl.task.filter(f => f.isDone === false).length} All: {tl.task.length + 1}</Grid>
+                        item>Completed: {tl.task.filter(f => f.isDone === true).length} Uncompleted: {tl.task.filter(f => f.isDone === false).length} All: {tl.task.length}</Grid>
                 </Grid>
             })}
         </Grid>

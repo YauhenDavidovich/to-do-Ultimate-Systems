@@ -1,13 +1,13 @@
-import React, {useCallback} from "react";
-import {Checkbox, FormControl, FormControlLabel, FormGroup, TextField, TextareaAutosize} from "@material-ui/core";
-import {useDispatch, useSelector} from "react-redux";
-import {useFormik, Field, FormikProvider} from "formik";
+import React, {useState} from "react";
+import {Checkbox, FormControl, TextField} from "@material-ui/core";
+import {useSelector} from "react-redux";
+import {Field} from "formik";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import {Modal} from "./ModalTodo";
-import {addTodolistTC, TodolistDomainType} from "../../bll/todolists-reducer";
-import useId from "react-id-generator";
+import {TodolistDomainType} from "../../bll/todolists-reducer";
 import {AppRootStateType} from "../../bll/store";
+import Button from "@material-ui/core/Button";
+import {AddedTask} from "./AddedTask";
 
 type PropsType = {
     show: boolean
@@ -15,29 +15,44 @@ type PropsType = {
     todolistID: string
 }
 
-
-type FormikErrorType = {
-    name?: string
-}
-
-
 export const ModalUpdateTodo = (props: PropsType) => {
-    const todolist = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists.filter(f => f.id === props.todolistID))
-    console.log(todolist)
-
-
+    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
+    const todolist = todolists.find(item => item.id === props.todolistID) || null
+    const [countAddedTasks, setCountAddedTasks] = useState(0)
 
     return (
-        <Modal
-            height={800}
-            width={880}
-            backgroundOnClick={() => props.setShow(false)}
-            enableBackground={true}
-            show={props.show}>
-           <>{todolist[0].name}</>
-           <>{todolist[0].name}</>
+        <>
+            {todolist &&
+            <Modal
+                height={800}
+                width={880}
+                backgroundOnClick={() => props.setShow(false)}
+                enableBackground={true}
+                show={props.show}>
+                <FormControl variant="outlined">
+                    <TextField id="todolist-name"
+                               label="Todolist"
+                               variant="filled"
+                               value={todolist.name}
+                    />
+                    <Grid item>
+                        {todolist.task.map((task, index) => (
+                            <AddedTask checked={task.isDone} value={task.name}/>
+                        ))}
+                        {[...Array(countAddedTasks)].map((_, i) => <AddedTask checked={false} value={''}
+                                                                              key={i}/>)}
+                        <Grid item>
+                            <Button variant={'contained'}
+                                    color={'primary'}
+                                    onClick={() => setCountAddedTasks(countAddedTasks + 1)}>Add</Button>
+                        </Grid>
+                    </Grid>
 
-        </Modal>
+
+                </FormControl>
+            </Modal>}
+        </>
+
     )
 
 };

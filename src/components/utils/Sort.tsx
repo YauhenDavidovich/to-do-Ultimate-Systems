@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function SimpleSelect() {
+export const Sort = () => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const [sort, setSort] = React.useState('');
